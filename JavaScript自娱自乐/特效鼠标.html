@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>appendChild and insertBefore</title>
+	</head>
+	<style type="text/css">
+		div{
+			width:50px ;
+			height: 50px;
+			position: absolute;
+			background-color: red;
+			border-radius: 50%;
+		}
+	</style>
+	<body>
+		
+		<script type="text/javascript">
+		document.onmousemove = function(event){
+			var e=event || window.event;
+			//创建元素节点
+			var mydiv = document.createElement("div");
+			//给元素节点添加class名称
+			mydiv.classList.add("div");
+			//元素节点的定位通过鼠标获取的坐标方式来进行设定
+			mydiv.style.top = e.clientY-25+"px";
+
+			mydiv.style.left = e.clientX-25+"px";
+			//元素节点的缩放因子初始化设置
+			mydiv.style.transform = "scale(0,0)";
+			//缩放因子
+			var scale = 0;
+			//透明度初始化设定
+			var op = 1;
+			//将创建的元素添加到整个body里面
+			document.body.appendChild(mydiv);
+			//制定缩放因子定时器
+			var set = setInterval(function(){
+				scale+=0.01;
+				op-=0.01;
+				mydiv.style.transform = "scale("+scale+","+scale+")";
+				mydiv.style.opacity =op;
+				if(scale>=1){
+					clearInterval(set)
+				}
+			},1);
+		}
+		</script>
+	</body>
+</html>

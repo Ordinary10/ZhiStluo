@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#box{
+				position: absolute;
+				top: 100px;
+				left: 680px;
+			}
+			#items{
+				position: absolute;
+				width: 200px;
+				height: 650px;
+				top: 100px;
+				left: 1330px;
+				border: 1px solid black;
+				background-color: #976540;
+			}
+			#states{
+				position: absolute;
+				width: 200px;
+				height: 650px;
+				top: 100px;
+				left: 480px;
+				border: 1px solid black;
+				background-color: #976540;				
+			}
+			#guaiwuxingxi{
+				position: absolute;
+				width: 470px;
+				height: 650px;
+				top: 100px;
+				left: 10px;
+				border: 1px solid black;
+				background-color: #976540;
+				font-size: 12px;
+			}
+			#guaiwuxingxi span{
+				width: 410px;
+			}
+			p{
+				padding-left: 10px;
+				margin-top: 20px;
+				font-size: 20px;
+				line-height: 20px;
+				color: white;
+			}
+			span{
+				width: 80px;
+				height: 50px;
+				display: inline-block;
+				text-align: center;
+				line-height: 50px;
+				vertical-align: top;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="guaiwuxingxi">
+			<p><img src="img/qinslm.png"/><span >生命：20&nbsp;攻击：30&nbsp;防御：20&nbsp;经验：5</span></p>
+			<p><img src="img/redslm.png"/><span >生命：25&nbsp;攻击：30&nbsp;防御：25&nbsp;经验：8</span></p>
+			<p><img src="img/bianfu.png"/><span >生命：50&nbsp;攻击：45&nbsp;防御：25&nbsp;经验：14</span></p>
+			<p><img src="img/kulou.png"/><span >生命：100&nbsp;攻击：50&nbsp;防御：18&nbsp;经验：12</span></p>
+			<p><img src="img/dunkulou.png"/><span >生命：120&nbsp;攻击：110&nbsp;防御：25&nbsp;经验：15</span></p>
+			<p><img src="img/fashi.png"/><span >生命：100&nbsp;攻击：90&nbsp;防御：15&nbsp;经验：25</span></p>
+			<p><img src="img/blueweibing.png"/><span >生命：120&nbsp;攻击：120&nbsp;防御：120&nbsp;经验：40</span></p>
+			<p><img src="img/tuseweibing.png"/><span >生命：300&nbsp;攻击：120&nbsp;防御：100&nbsp;经验：60</span></p>
+			<p><img src="img/boss.png"/><span >生命：400&nbsp;攻击：180&nbsp;防御：130&nbsp;经验：400</span></p>
+		</div>
+		<div id="items">
+			<p ><img src="img/yellowkey.png"/>&nbsp;<span id="yellowkey">0</span></p>
+			<p><img src="img/bluekey.png"/>&nbsp;<span id="bluekey">0</span></p>
+			<p><img src="img/redkey.png"/>&nbsp;<span id="redkey">0</span></p>
+		</div>
+		<div id="states">
+			<p><span>层数：</span><span id="cs">1</span></p>
+			<p ><span>生命：</span><span id="sm">100</span></p>
+			<p ><span>攻击：</span><span id="kd">50</span></p>
+			<p ><span>防御：</span><span id="fy">25</span></p>			
+			<p ><span>经验：</span><span id="jinyan">0/20</span></p>			
+			<p ><span>等级：</span><span id="lv">1</span></p>			
+		</div>
+		<div id="box" style="width: 650px;height: 650px;"></div>
+		<script type="text/javascript">
+			var arr1=[
+				[0,0,0,0,0,0,0,0,0,0,0,0,0],
+				[0,15,1,12,13,12,1,1,1,1,1,1,0],
+				[0,0,0,0,0,0,0,0,0,0,0,1,0],
+				[0,14,1,1,4,1,0,5,3,1,0,1,0],
+				[0,1,7,1,0,1,0,6,14,1,0,1,0],
+				[0,0,1,0,0,1,0,0,0,4,0,1,0],
+				[0,3,1,1,0,1,4,9,10,9,0,1,0],
+				[0,1,8,1,0,1,0,0,0,0,0,1,0],
+				[0,0,4,0,0,1,1,1,1,1,1,1,0],
+				[0,1,1,1,0,0,4,0,0,0,4,0,0],
+				[0,14,1,3,0,3,1,1,0,1,9,1,0],
+				[0,14,5,3,0,1,2,1,0,12,16,12,0],
+				[0,0,0,0,0,0,0,0,0,0,0,0,0]			
+			];
+			var arr2=[
+				[0,0,0,0,0,0,0,0,0,0,0,0,0],
+				[0,19,0,18,1,1,1,1,1,1,1,1,0],
+				[0,2,1,1,0,1,17,1,17,1,0,0,0],
+				[0,1,0,0,0,0,0,1,0,0,0,0,0],
+				[0,1,0,3,3,0,1,1,1,0,1,20,0],
+				[0,1,0,3,1,22,1,1,1,22,1,1,0],
+				[0,1,0,0,0,0,1,1,1,0,0,0,0],
+				[0,1,0,23,1,0,1,1,1,0,1,21,0],
+				[0,1,0,1,1,22,1,1,1,22,1,1,0],
+				[0,1,0,0,0,0,1,1,1,0,0,0,0],
+				[0,1,0,16,16,0,1,1,1,0,1,1,0],
+				[0,15,0,16,1,22,1,1,1,22,1,1,0],
+				[0,0,0,0,0,0,0,0,0,0,0,0,0]			
+			];
+			var arr3=[
+				[0,0,0,0,0,0,0,0,0,0,0,0,0],
+				[0,3,6,0,3,16,3,0,1,0,1,14,0],
+				[0,1,14,0,16,3,16,0,1,4,9,1,0],
+				[0,10,1,0,3,24,3,0,1,0,0,0,0],
+				[0,4,0,0,0,1,0,0,1,0,1,20,0],
+				[0,1,1,9,1,1,1,12,1,1,1,1,0],
+				[0,4,0,0,1,1,1,0,1,0,0,0,0],
+				[0,7,1,0,0,1,0,0,1,0,1,14,0],
+				[0,1,3,0,1,1,1,0,1,4,10,3,0],
+				[0,14,5,0,1,1,1,0,1,0,0,0,0],
+				[0,0,0,0,0,1,0,0,13,0,1,1,0],
+				[0,19,2,1,1,1,1,0,1,4,1,15,0],
+				[0,0,0,0,0,0,0,0,0,0,0,0,0]			
+			];
+			var arr4=[
+				[0,0,0,0,0,0,0,0,0,0,0,0,0],
+				[0,1,24,1,0,97,98,99,0,1,20,1,0],
+				[0,14,1,3,0,1,1,1,0,3,1,16,0],
+				[0,1,1,1,0,1,1,1,0,1,8,1,0],
+				[0,0,4,0,0,0,18,0,0,0,4,0,0],
+				[0,1,10,1,4,1,13,1,1,7,1,1,0],
+				[0,1,1,1,0,0,0,0,0,0,0,0,0],
+				[0,13,1,12,1,1,1,1,1,1,1,1,0],
+				[0,4,0,0,4,0,0,0,4,0,0,4,0],
+				[0,1,0,1,9,1,0,1,10,1,0,1,0],
+				[0,1,0,12,1,3,0,5,1,14,0,2,0],
+				[0,15,0,3,12,3,0,1,12,1,0,19,0],
+				[0,0,0,0,0,0,0,0,0,0,0,0,0]			
+			];
+			var arr5=[
+				[0,0,0,0,0,0,0,0,0,0,0,0,0],
+				[0,15,0,1,13,4,1,0,1,1,4,1,0],
+				[0,1,0,1,1,0,3,0,12,12,0,13,0],
+				[0,1,4,9,1,0,1,0,3,3,0,1,0],	
+				[0,0,0,0,4,0,9,0,3,3,0,1,0],
+				[0,3,0,10,1,0,1,0,0,0,0,1,0],
+				[0,3,1,1,9,0,1,12,1,1,1,1,0],
+				[0,0,8,0,0,0,1,0,0,0,0,13,0],
+				[0,1,1,1,1,0,12,0,1,1,1,1,0],
+				[0,6,3,14,5,0,1,0,4,0,0,0,0],
+				[0,0,0,0,0,0,1,0,1,0,1,1,0],
+				[0,19,2,1,1,1,1,0,1,96,1,25,0],
+				[0,0,0,0,0,0,0,0,0,0,0,0,0]			
+			];
+			var arr6=[
+				[0,0,0,0,0,0,0,0,0,0,0,0,0],
+				[0,19,0,3,3,0,1,10,1,3,12,1,0],
+				[0,2,0,3,3,0,1,0,0,0,0,4,0],
+				[0,1,0,0,13,0,1,0,14,1,7,1,0],	
+				[0,1,4,4,1,4,1,0,21,1,1,9,0],
+				[0,1,0,0,0,0,1,0,0,0,0,0,0],
+				[0,1,1,13,10,1,3,1,7,8,1,1,0],
+				[0,0,0,0,0,0,1,0,0,0,0,1,0],
+				[0,10,1,1,20,0,1,4,4,1,4,1,0],
+				[0,1,9,1,6,0,1,0,0,13,0,13,0],
+				[0,4,0,0,0,0,1,0,1,1,0,1,0],
+				[0,1,12,1,1,7,1,0,14,14,0,15,0],
+				[0,0,0,0,0,0,0,0,0,0,0,0,0]			
+			];
+			var arr7=[
+				[0,0,0,0,0,0,0,0,0,0,0,0,0],
+				[0,15,0,5,0,1,21,1,0,3,0,12,0],
+				[0,1,0,14,0,1,1,1,0,3,0,13,0],
+				[0,1,0,9,0,13,0,8,0,14,0,12,0],	
+				[0,1,0,1,0,1,0,1,0,1,0,1,0],
+				[0,4,0,4,0,18,0,4,0,7,0,4,0],
+				[0,1,8,1,10,1,1,1,1,1,1,1,0],
+				[0,4,0,4,0,4,0,4,0,8,0,4,0],
+				[0,1,0,1,0,1,0,1,0,1,0,1,0],
+				[0,1,0,1,0,9,0,13,0,16,0,1,0],
+				[0,12,0,12,0,3,0,10,0,3,0,2,0],
+				[0,1,13,1,0,3,0,16,0,3,0,19,0],
+				[0,0,0,0,0,0,0,0,0,0,0,0,0]			
+			];
+			var arr8=[
+				[0,0,0,0,0,0,0,0,0,0,0,0,0],
+				[0,19,0,0,0,0,15,0,0,3,0,3,0],
+				[0,2,1,0,0,1,1,12,0,1,28,1,0],
+				[0,4,0,0,0,0,4,0,0,16,1,14,0],	
+				[0,1,0,3,3,3,1,1,0,0,26,0,0],
+				[0,14,0,0,0,0,0,10,0,27,1,27,0],
+				[0,1,13,12,13,1,0,1,0,1,1,1,0],
+				[0,0,0,0,0,4,0,9,0,0,4,0,0],
+				[0,1,1,1,9,1,7,1,10,1,1,1,0],
+				[0,4,0,0,0,0,0,0,0,0,0,4,0],
+				[0,12,1,0,5,3,0,24,14,0,1,7,0],
+				[0,1,9,18,3,6,0,3,1,4,8,1,0],
+				[0,0,0,0,0,0,0,0,0,0,0,0,0]			
+			];
+			var arr9=[
+				[0,0,0,0,0,0,0,0,0,0,0,0,0],
+				[0,1,1,7,0,0,19,0,0,12,1,14,0],
+				[0,1,3,1,0,1,2,1,0,1,14,1,0],
+				[0,8,0,0,0,0,18,0,0,0,0,1,0],	
+				[0,1,3,1,0,3,1,3,4,4,1,1,0],
+				[0,6,1,9,4,1,5,1,0,0,0,0,0],
+				[0,0,0,0,0,0,0,13,0,1,31,8,0],
+				[0,3,1,4,8,3,0,1,0,29,0,1,0],
+				[0,8,1,0,1,1,0,1,0,0,0,4,0],
+				[0,4,0,0,0,4,0,1,0,3,1,10,0],
+				[0,1,14,0,1,7,0,9,0,1,7,1,0],
+				[0,15,0,0,1,1,4,1,4,10,1,14,0],
+				[0,0,0,0,0,0,0,0,0,0,0,0,0]			
+			];
+			var arr10=[
+				[0,0,0,0,0,0,0,0,0,0,0,0,0],
+				[0,1,1,1,1,1,1,1,1,1,1,1,0],
+				[0,0,0,0,0,1,1,1,0,0,0,0,0],
+				[0,5,5,5,0,0,1,0,0,6,6,6,0],	
+				[0,1,5,1,26,1,30,1,26,1,6,1,0],
+				[0,0,0,0,0,1,1,1,0,0,0,0,0],
+				[0,7,6,7,0,0,1,0,0,7,5,7,0],
+				[0,1,8,1,0,0,1,0,0,1,8,1,0],
+				[0,1,1,1,0,0,1,0,0,1,1,1,0],
+				[0,4,0,4,0,0,31,0,0,4,0,4,0],
+				[0,2,0,1,0,1,1,1,0,1,0,1,0],
+				[0,19,0,1,10,1,1,1,10,1,0,16,0],
+				[0,0,0,0,0,0,0,0,0,0,0,0,0]			
+			];
+
+			var startarr=arr1;
+			var sm=document.getElementById("sm");
+			var fy=document.getElementById("fy");
+			var kd=document.getElementById("kd");
+			var yellowkey=document.getElementById("yellowkey");
+			var bluekey=document.getElementById("bluekey");
+			var redkey=document.getElementById("redkey");
+			var jinyan=document.getElementById("jinyan");
+			var lv=document.getElementById("lv");
+			var startarr=arr1;
+			var arr=arr1;
+			var box=document.getElementById("box");
+			var boxwidth=parseInt(box.style.width);
+			var boxheight=parseInt(box.style.height);
+			var x=6;//英雄的初始横坐标
+			var y=11;//英雄的初始纵坐标
+			var yellowkeys=0;
+			var bluekeys=0;
+			var redkeys=0;
+			var penkd=50;
+			var penfy=25;
+			var lvs=1;
+			var kd1=30,fy1=20,sm1=20,jinyan1=5;//青色史莱姆
+			var kd2=30,fy2=25,sm2=25,jinyan2=8;//红色史莱姆
+			var kd3=50,fy3=18,sm3=100,jinyan3=12;//小骷髅
+			var kd4=110,fy4=25,sm4=120,jinyan4=15;//大骷髅
+			var kd5=90,fy5=15,sm5=100,jinyan5=25;//法师
+			var kd6=45,fy6=25,sm6=50,jinyan6=14;//蝙蝠
+			var kd7=120,fy7=120,sm7=120,jinyan7=40;//蓝卫兵
+			var kd8=120,fy8=100,sm8=300,jinyan8=60;//土卫兵
+			var kd9=180,fy9=130,sm9=400,jinyan9=400;//骷髅队长
+			var kd10=300,fy10=180,sm10=600,jinyan10=500;//boss
+			var shengming=100;
+			var cengshu=1;
+			var jinyans=0;	
+			var startsm=0;
+			Map(arr1);
+			move();
+			
+			//创建地图元素
+			function Map(arrays){
+				box.innerHTML="";
+				for(var i=0,len1=arrays.length;i<len1;i++){
+					for(var j=0,len2=arrays[i].length;j<len2;j++){
+						var div=document.createElement("div");
+						div.style.width = boxwidth/arrays[i].length+"px";
+						div.style.height = boxheight/arrays.length+"px";
+						div.style.backgroundRepeat = "no-repeat";
+						div.style.backgroundSize = "100% 100%";
+						div.style.backgroundColor = "rgba(0,0,0,0)"
+						div.style.float = "left";
+						if(arrays[i][j]==0){
+							div.style.backgroundImage="url(img/qiang.png)";
+						}else 	if(arrays[i][j]==1){
+							div.style.backgroundImage="url(img/dimian.png)";
+						}else 	if(arrays[i][j]==2){
+							div.style.backgroundImage="url(img/yinxiong.png)";
+						}else 	if(arrays[i][j]==3){
+							div.style.backgroundImage="url(img/yellowkey.png)";
+						}else 	if(arrays[i][j]==4){
+							div.style.backgroundImage="url(img/yellowmen.png)";
+						}else 	if(arrays[i][j]==5){
+							div.style.backgroundImage="url(img/redbaoshi.png)";
+						}else 	if(arrays[i][j]==6){
+							div.style.backgroundImage="url(img/bluebaoshi.png)";
+						}else 	if(arrays[i][j]==7){
+							div.style.backgroundImage="url(img/kulou.png)";
+						}else 	if(arrays[i][j]==8){
+							div.style.backgroundImage="url(img/dunkulou.png)";
+						}else 	if(arrays[i][j]==9){
+							div.style.backgroundImage="url(img/bianfu.png)";
+						}else if(arrays[i][j]==10){
+							div.style.backgroundImage="url(img/fashi.png)";
+						}else if(arrays[i][j]==11){
+							div.style.backgroundImage="url(img/feixin.png)";
+						}else if(arrays[i][j]==12){
+							div.style.backgroundImage="url(img/qinslm.png)";
+						}else if(arrays[i][j]==13){
+							div.style.backgroundImage="url(img/redslm.png)";
+						}else if(arrays[i][j]==14){
+							div.style.backgroundImage="url(img/redxueping.png)";
+						}else if(arrays[i][j]==15){
+							div.style.backgroundImage="url(img/uplou.png)";
+						}else if(arrays[i][j]==16){
+							div.style.backgroundImage="url(img/bluexuepin.png)";
+						}else if(arrays[i][j]==17){
+							div.style.backgroundImage="url(img/blueweibing.png)";
+						}else if(arrays[i][j]==18){
+							div.style.backgroundImage="url(img/bluemen.png)";
+						}else if(arrays[i][j]==19){
+							div.style.backgroundImage="url(img/downlou.png)";
+						}else if(arrays[i][j]==20){
+							div.style.backgroundImage="url(img/bluenpc.png)";
+						}else if(arrays[i][j]==21){
+							div.style.backgroundImage="url(img/rednpc.png)";
+						}else if(arrays[i][j]==22){
+							div.style.backgroundImage="url(img/tiemen.png)";
+						}else if(arrays[i][j]==23){
+							div.style.backgroundImage="url(img/xiaotounpc.png)";
+						}else if(arrays[i][j]==24){
+							div.style.backgroundImage="url(img/bluekey.png)";
+						}else if(arrays[i][j]==97){
+							div.style.backgroundImage="url(img/shopleft.png)";
+						}else if(arrays[i][j]==98){
+							div.style.backgroundImage="url(img/shopcenter.png)";
+						}else if(arrays[i][j]==99){
+							div.style.backgroundImage="url(img/shopright.png)";
+						}else if(arrays[i][j]==25){
+							div.style.backgroundImage="url(img/baojian.png)";
+						}else if(arrays[i][j]==96){
+							div.style.backgroundImage="url(img/qiang.png)";
+						}else if(arrays[i][j]==26){
+							div.style.backgroundImage="url(img/huamen.png)";
+						}else if(arrays[i][j]==27){
+							div.style.backgroundImage="url(img/tuseweibing.png)";
+						}else if(arrays[i][j]==28){
+							div.style.backgroundImage="url(img/redkey.png)";
+						}else if(arrays[i][j]==29){
+							div.style.backgroundImage="url(img/dunpai.png)";
+						}	else if(arrays[i][j]==31){
+							div.style.backgroundImage="url(img/redmen.png)";
+						}else if(arrays[i][j]==30){
+							div.style.backgroundImage="url(img/boss.png)";
+						}else if(arrays[i][j]==100){
+							div.style.backgroundImage="url(img/boss.png)";
+						}
+						box.appendChild(div);
+					}
+				}
+			}
+		
+			function move(){
+				window.onkeyup  =function(e){
+					switch(e.keyCode){
+						case 37:
+						if(x<=0){
+						}else{
+							compare(37,arr)
+						}
+						break;
+						case 38:
+						if(y<=0){
+							
+						}else{
+							compare(38,arr)
+						}
+						break;
+						case 39:
+						if(x>arr1[y].length-2){					
+						}else{
+							compare(39,arr)							
+						}
+						
+						break;
+						case 40:
+						if(y>arr1.length-2){
+							
+						}else{
+							compare(40,arr)
+						}
+						break;
+					}
+				}
+			}
+		
+			function compare(keycode,arrays){
+				var x0;
+				var y0;
+				var code;
+				if(keycode==37){
+					x0 = x-1;
+					y0 = y;
+					code=1;
+				}else if(keycode==38){
+					x0 = x;
+					y0 = y-1;
+					code=2;
+				}else if(keycode==39){
+					x0 = x+1;
+					y0 = y;
+					code=3;
+				}else if(keycode==40){
+					x0 = x;
+					y0 = y+1;
+					code=4;
+				}
+				
+				if(arrays[y0][x0]==0){
+					
+				}else if(arrays[y0][x0]==1){
+					arrays[y0][x0]=1;
+					clear(arrays,code);
+				}else if(arrays[y0][x0]==3){
+					arrays[y0][x0]=1;
+					yellowkeys+=1;
+					yellowkey.innerHTML=yellowkeys;
+					clear(arrays,code);
+				}else if(arrays[y0][x0]==4){
+					if(yellowkeys>0){
+						yellowkeys--;
+						yellowkey.innerHTML=yellowkeys;
+						arrays[y0][x0]=1;
+						clear(arrays,code);
+					}else{
+						alert("黄钥匙不足");
+					}
+				}else if(arrays[y0][x0]==12){
+					if(penkd>fy1){
+						if(kd1>penfy){
+							startsm=shengming;
+							shengming=shengming-Math.ceil(sm1/(penkd-fy1))*(kd1-penfy);
+						} 
+						if(shengming>0){							
+							jinyans=jinyans+jinyan1;
+							funlv();
+							sm.innerHTML=shengming;				
+							arrays[y0][x0]=1;
+							clear(arrays,code);
+						}else{
+							shengming=startsm;
+							alert("你不是它的对手，请变强");
+						}
+					}else{
+						alert("你不是它的对手，请变强");
+					}
+					
+				}else if(arrays[y0][x0]==13){
+					if(penkd>fy2){
+						if(kd2>penfy){
+							startsm=shengming;
+							shengming=shengming-Math.ceil(sm2/(penkd-fy2))*(kd2-penfy);
+						} 
+						if(shengming>0){
+							jinyans=jinyans+jinyan2;
+							funlv();
+							sm.innerHTML=shengming;					
+							arrays[y0][x0]=1;
+							clear(arrays,code);
+						}else{
+							shengming=startsm;
+							alert("你不是它的对手，请变强");
+						}
+					}else{
+						alert("你不是它的对手，请变强");
+					}
+				}else if(arrays[y0][x0]==15){
+					switch(cengshu){
+						case 1:
+							cengshu++;
+							cs.innerHTML=cengshu;
+							arr1=arr;
+							arr=arr2;
+							x=1;
+							y=2;
+							Map(arr);						
+						break;
+						case 2:
+							cengshu++;
+							cs.innerHTML=cengshu;
+							arr2=arr;
+							arr=arr3;
+							x=2;
+							y=11;
+							Map(arr);
+						break;
+						case 3:
+							cengshu++;
+							cs.innerHTML=cengshu;
+							arr3=arr;
+							arr=arr4;
+							x=11;
+							y=10;
+							Map(arr);
+						break;
+						case 4:
+							cengshu++;
+							cs.innerHTML=cengshu;
+							arr4=arr;
+							arr=arr5;
+							x=2;
+							y=11;
+							Map(arr);
+						break;
+						case 5:
+							cengshu++;
+							cs.innerHTML=cengshu;
+							arr5=arr;
+							arr=arr6;
+							x=1;
+							y=2;
+							Map(arr);
+						break;
+						case 6:
+							cengshu++;
+							cs.innerHTML=cengshu;
+							arr6=arr;
+							arr=arr7;
+							x=11;
+							y=10;
+							Map(arr);
+						break;
+						case 7:
+							cengshu++;
+							cs.innerHTML=cengshu;
+							arr7=arr;
+							arr=arr8;
+							x=1;
+							y=2;
+							Map(arr);
+						break;
+						case 8:
+							cengshu++;
+							cs.innerHTML=cengshu;
+							arr8=arr;
+							arr=arr9;
+							x=6;
+							y=2;
+							Map(arr);
+						break;
+						case 9:
+							cengshu++;
+							cs.innerHTML=cengshu;
+							arr9=arr;
+							arr=arr10;
+							x=1;
+							y=10;
+							Map(arr);
+						break;						
+					}
+				}else if(arrays[y0][x0]==19){
+					switch(cengshu){
+						case 10:
+							cengshu--;
+							cs.innerHTML=cengshu;
+							arr10=arr;
+							arr=arr9;
+							x=1;
+							y=10;
+							Map(arr);
+						break;
+						case 9:
+							cengshu--;
+							cs.innerHTML=cengshu;
+							arr9=arr;
+							arr=arr8;
+							x=6;
+							y=2;
+						Map(arr);
+						break;
+						case 8:
+							cengshu--;
+							cs.innerHTML=cengshu;
+							arr8=arr;
+							arr=arr7;
+							x=1;
+							y=2;
+							Map(arr);
+						break;
+						case 7:
+							cengshu--;
+							cs.innerHTML=cengshu;
+							arr7=arr;
+							arr=arr6;
+							x=11;
+							y=10;
+							Map(arr);
+						break;
+						case 6:
+							cengshu--;
+							cs.innerHTML=cengshu;
+							arr6=arr;
+							arr=arr5;
+							x=1;
+							y=2;
+							Map(arr);
+						break;
+						case 5:
+							cengshu--;
+							cs.innerHTML=cengshu;
+							arr5=arr;
+							arr=arr4;
+							x=1;
+							y=10;
+							Map(arr);
+						break;
+						case 4:
+							cengshu--;
+							cs.innerHTML=cengshu;
+							arr4=arr;
+							arr=arr3;
+							x=10;
+							y=11;
+							Map(arr);
+						break;
+						case 3:
+							cengshu--;
+							cs.innerHTML=cengshu;
+							arr3=arr;
+							arr=arr2;
+							x=1;
+							y=10;
+							Map(arr);
+						break;
+						case 2:
+							cengshu--;
+							cs.innerHTML=cengshu;
+							arr2=arr;
+							arr=arr1;
+							x=2;
+							y=1;
+							Map(arr);
+						break;
+					}														
+				}else if(arrays[y0][x0]==24){
+					arrays[y0][x0]=1;
+					bluekeys+=1;
+					bluekey.innerHTML=bluekeys;
+					clear(arrays,code);					
+				}else if(arrays[y0][x0]==16){
+					arrays[y0][x0]=1;
+					shengming+=200;
+					sm.innerHTML=shengming;
+					clear(arrays,code);	
+				}else if(arrays[y0][x0]==14){
+					arrays[y0][x0]=1;
+					shengming+=100;
+					sm.innerHTML=shengming;
+					clear(arrays,code);	
+				}else if(arrays[y0][x0]==17){
+					if(penkd>fy7){
+						if(kd7>penfy){
+							shengming=shengming-Math.ceil(sm7/(penkd-fy7))*(kd7-penfy);
+						} 
+						if(shengming>0){
+							startsm=shengming;
+							jinyans=jinyans+jinyan7;
+							funlv();
+							sm.innerHTML=shengming;							
+							arrays[y0][x0]=1;
+							if(arrays[2][6]==1&&arrays[2][8]==1){
+								arrays[5][5]=1;
+								arrays[8][5]=1;
+								arrays[11][5]=1;
+								arrays[5][9]=1;
+								arrays[8][9]=1;
+								arrays[11][9]=1;
+							}
+							clear(arrays,code);
+						}else{
+							shengming=startsm;
+							alert("你不是它的对手，请变强");
+						}
+					}else{
+						alert("你不是它的对手，请变强");
+					}
+				}else if(arrays[y0][x0]==18){
+					if(bluekeys>0){
+						bluekeys--;
+						bluekey.innerHTML=bluekeys;
+						arrays[y0][x0]=1;
+						clear(arrays,code);
+					}else{
+						alert("蓝钥匙不足");
+					}
+				}else if(arrays[y0][x0]==5){
+					arrays[y0][x0]=1;
+					penkd+=2;
+					kd.innerHTML=penkd;
+					clear(arrays,code);
+				}else if(arrays[y0][x0]==6){
+					arrays[y0][x0]=1;
+					penfy+=1;
+					fy.innerHTML=penfy;
+					clear(arrays,code);
+				}else if(arrays[y0][x0]==7){
+					if(penkd>fy3){
+						if(kd3>penfy){
+							startsm=shengming;
+							shengming=shengming-Math.ceil(sm3/(penkd-fy3))*(kd3-penfy);
+						} 
+						if(shengming>0){
+							jinyans=jinyans+jinyan3;
+							funlv();
+							sm.innerHTML=shengming;					
+							arrays[y0][x0]=1;
+							clear(arrays,code);
+						}else{
+							shengming=startsm;
+							alert("你不是它的对手，请变强");
+						}
+					}else{
+						alert("你不是它的对手，请变强");
+					}
+				}else if(arrays[y0][x0]==8){
+					if(penkd>fy4){
+						if(kd4>penfy){
+							startsm=shengming;
+							shengming=shengming-Math.ceil(sm4/(penkd-fy4))*(kd4-penfy);
+						} 
+						if(shengming>0){
+							jinyans=jinyans+jinyan4;
+							funlv();
+							sm.innerHTML=shengming;				
+							arrays[y0][x0]=1;
+							clear(arrays,code);
+						}else{
+							shengming=startsm;
+							alert("你不是它的对手，请变强");
+						}
+					}else{
+							alert("你不是它的对手，请变强");
+						}
+				}else if(arrays[y0][x0]==9){
+					if(penkd>fy6){
+						if(kd6>penfy){
+							startsm=shengming
+							shengming=shengming-Math.ceil(sm6/(penkd-fy6))*(kd6-penfy);
+						} 
+						if(shengming>0){
+							jinyans=jinyans+jinyan6;
+							funlv();
+							sm.innerHTML=shengming;				
+							arrays[y0][x0]=1;
+							clear(arrays,code);
+						}else{
+							shengming=startsm;
+							alert("你不是它的对手，请变强");
+						}
+					}else{
+						alert("你不是它的对手，请变强");
+					}					
+				}else if(arrays[y0][x0]==10){
+					if(penkd>fy5){
+						if(kd5>penfy){
+							startsm=shengming;
+							shengming=shengming-Math.ceil(sm5/(penkd-fy5))*(kd5-penfy);
+						} 
+						if(shengming>0){
+							jinyans=jinyans+jinyan5;
+							funlv();
+							sm.innerHTML=shengming;					
+							arrays[y0][x0]=1;
+							clear(arrays,code);
+						}else{
+							shengming=startsm;
+							alert("你不是它的对手，请变强");
+						}
+					}else{
+						alert("你不是它的对手，请变强");
+					}
+				}else if(arrays[y0][x0]==27){
+					if(penkd>fy8){
+						if(kd8>penfy){
+							startsm=shengming;
+							shengming=shengming-Math.ceil(sm8/(penkd-fy8))*(kd8-penfy);
+						} 
+						if(shengming>0){
+							jinyans=jinyans+jinyan8;
+							funlv();
+							sm.innerHTML=shengming;				
+							arrays[y0][x0]=1;
+							if(arrays[5][9]==1&&arrays[5][11]==1){
+								arrays[4][10]=1;
+							}
+							clear(arrays,code);
+						}else{
+							shengming=startsm;
+							alert("你不是它的对手，请变强");
+						}
+					}else{
+						alert("你不是它的对手，请变强");
+					}
+				}else if(arrays[y0][x0]==30){
+					if(penkd>fy9){
+						if(kd9>penfy){
+							startsm=shengming;
+							shengming=shengming-Math.ceil(sm9/(penkd-fy9))*(kd9-penfy);
+						} 
+						if(shengming>0){
+							jinyans=jinyans+jinyan9;
+							funlv();
+							sm.innerHTML=shengming;
+							arrays[4][4]=1;
+							arrays[4][8]=1;
+							arrays[y0][x0]=1;
+							arrays[1][6]=100;
+							arrays[9][6]=0;
+							clear(arrays,code);
+							alert("哈哈哈，你以为这样就能打败我吗！大魔王啊赐我力量吧!骷髅队长复活了，攻击增加了120，防御增加了50，生命增加了500");							
+						}else{
+							shengming=startsm;
+							alert("你不是它的对手，请变强");
+						}
+					}else{
+						alert("你不是它的对手，请变强");
+					}
+				}else if(arrays[y0][x0]==25){
+					arrays[y0][x0]=1;
+					penkd+=60;
+					kd.innerHTML=penkd;
+					clear(arrays,code);
+				}else if(arrays[y0][x0]==29){
+					arrays[y0][x0]=1;
+					penfy+=50;
+					fy.innerHTML=penfy;
+					clear(arrays,code);
+				}else if(arrays[y0][x0]==20){
+					switch(cengshu){
+							case 2:
+							penkd+=20;
+							kd.innerHTML=penkd;
+							alert("感谢你救了我，送你20攻击力");
+							arrays[y0][x0]=1;
+							clear(arrays,code);
+							break;
+							case 3:
+							alert("告诉你个秘密，英雄之剑的封存之地是虚实结合的");
+							arrays[y0][x0]=1;
+							clear(arrays,code);
+							break;
+							case 4:
+							alert("送你一把蓝钥匙");
+							bluekeys++;
+							bluekey.innerHTML=bluekeys;
+							arrays[y0][x0]=1;
+							clear(arrays,code);
+							break;
+							case 6:
+							alert("勇士，为你的勇气祝福");
+							penfy+=5;
+							fy.innerHTML=penfy;
+							arrays[y0][x0]=1;
+							clear(arrays,code);
+							break;
+					}
+				}else if(arrays[y0][x0]==21){
+					switch(cengshu){
+						case 2:
+						alert("勇士，送你一把红钥匙");
+						redkeys++;
+						redkey.innerHTML=redkeys;
+						arrays[y0][x0]=1;
+						clear(arrays,code);
+						break;
+						case 6:
+						alert("勇士，不要轻视第十层的骷髅队长");
+						arrays[y0][x0]=1;
+						clear(arrays,code);
+						break;
+						case 7:
+						alert("勇士，愿圣光与你同在");
+						shengming+=500;
+						sm.innerHTML=shengming;
+						arrays[y0][x0]=1;
+						clear(arrays,code);
+						break;
+					}
+				}else if(arrays[y0][x0]==96){
+					arrays[y0][x0]=1;
+					clear(arrays,code);
+				}else if(arrays[y0][x0]==23){
+					alert("我是盗圣，感谢你救了我，以后再见必当重谢");
+					arrays[y0][x0]=1;
+					clear(arrays,code);
+				}else if(arrays[y0][x0]==31){
+					if(redkeys>0){
+						redkeys--;
+						redkey.innerHTML=redkeys;
+						arrays[y0][x0]=1;
+						clear(arrays,code);
+					}else{
+						alert("红钥匙数量不足");
+					}					
+				}else if(arrays[y0][x0]==100){
+					if(penkd>fy10){
+						if(kd10>penfy){
+							startsm=shengming;
+							shengming=shengming-Math.ceil(sm10/(penkd-fy10))*(kd10-penfy);
+						} 
+						if(shengming>0){
+							jinyans=jinyans+jinyan10;
+							funlv();
+							sm.innerHTML=shengming;
+							arrays[y0][x0]==1;
+							clear(arrays,code);	
+							alert("恭喜你勇士，已通关第一阶段，下次更新将推出更高的楼层！！！")
+						}else{
+							shengming=startsm;
+							alert("获得大魔王力量的骷髅队长太强大了，退路也被封锁了，请重新来过吧！！");
+						}
+					}else{
+						alert("获得大魔王力量的骷髅队长太强大了，退路也被封锁了，请重新来过吧！！");
+					}
+				}else if(arrays[y0][x0]==98){
+					alert("商店功能还在开发中！！！");
+				}else if(arrays[y0][x0]==28){
+					redkeys++;
+					redkey.innerHTML=redkeys;
+					arrays[y0][x0]=1;
+					clear(arrays,code);
+				}
+				
+
+		}
+			function clear(arrays,code){//清除英雄移动过的元素恢复至地面
+				var y0;
+				var x0;
+				if(code==1){
+					x0 = x-1;
+					y0 = y;				
+				}else if(code==2){
+					x0 = x;
+					y0 = y-1;
+				}else if(code==3){
+					x0=x+1;
+					y0=y;
+				}else if(code==4){
+						x0 = x;
+						y0 = y+1;
+				}
+				var temp;
+				temp = arrays[y][x];
+				arrays[y][x] = arrays[y0][x0];
+				arrays[y0][x0] = temp;
+				arr=arrays;
+				y = y0;
+				x = x0;				
+				Map(arr);
+			}
+			
+			function funlv(){
+				switch(lvs){
+							case 1:
+								if(jinyans>20){
+									jinyans-=20;
+									lvs++;
+									penkd+=5;
+									penfy+=2;								
+									lv.innerHTML=lvs;
+									kd.innerHTML=penkd;
+									fy.innerHTML=penfy;		
+									jinyan.innerHTML=jinyans+"/50";
+								}else{
+									jinyan.innerHTML=jinyans+"/20";
+								}
+							break;
+							case 2:
+								if(jinyans>50){
+									jinyans-=50;
+									lvs++;
+									penkd+=7;
+									penfy+=3;									
+									lv.innerHTML=lvs;
+									kd.innerHTML=penkd;
+									fy.innerHTML=penfy;	
+									jinyan.innerHTML=jinyans+"/90";
+								}else{
+									jinyan.innerHTML=jinyans+"/50";
+								}							
+							break;
+							case 3:
+								if(jinyans>90){
+									jinyans-=90;
+									lvs++;
+									penkd+=9;
+									penfy+=4;									
+									lv.innerHTML=lvs;
+									kd.innerHTML=penkd;
+									fy.innerHTML=penfy;			
+									jinyan.innerHTML=jinyans+"/140";
+								}else{
+									jinyan.innerHTML=jinyans+"/90";
+								}								
+							break;
+							case 4:
+								if(jinyans>140){
+									jinyans-=140;
+									lvs++;
+									penkd+=11;
+									penfy+=5;									
+									lv.innerHTML=lvs;
+									kd.innerHTML=penkd;
+									fy.innerHTML=penfy;		
+									jinyan.innerHTML=jinyans+"/200";
+								}else{
+									jinyan.innerHTML=jinyans+"/140";
+								}
+								
+							break;
+							case 5:
+								if(jinyans>200){
+									jinyans-=200;
+									lvs++;
+									penkd+=13;
+									penfy+=5;									
+									lv.innerHTML=lvs;
+									kd.innerHTML=penkd;
+									fy.innerHTML=penfy;		
+									jinyan.innerHTML=jinyans+"/280";
+								}else{
+									jinyan.innerHTML=jinyans+"/200";
+								}								
+							break;	
+							case 6:
+								if(jinyans>280){
+									jinyans-=280;
+									lvs++;
+									penkd+=14;
+									penfy+=6;									
+									lv.innerHTML=lvs;
+									kd.innerHTML=penkd;
+									fy.innerHTML=penfy;		
+									jinyan.innerHTML=jinyans+"/400";
+								}else{
+									jinyan.innerHTML=jinyans+"/280";
+								}								
+							break;
+							case 7:
+								if(jinyans>400){
+									jinyans-=400;
+									lvs++;
+									penkd+=16;
+									penfy+=8;									
+									lv.innerHTML=lvs;
+									kd.innerHTML=penkd;
+									fy.innerHTML=penfy;		
+									jinyan.innerHTML=jinyans+"/530";
+								}else{
+									jinyan.innerHTML=jinyans+"/400";
+								}								
+							break;
+							case 8:
+								if(jinyans>530){
+									jinyans-=530;
+									lvs++;
+									penkd+=17;
+									penfy+=10;									
+									lv.innerHTML=lvs;
+									kd.innerHTML=penkd;
+									fy.innerHTML=penfy;			
+									jinyan.innerHTML=jinyans+"/800";
+								}else{
+									jinyan.innerHTML=jinyans+"/530";
+								}							
+							break;
+							case 9:
+								if(jinyans>800){
+									jinyans-=800;
+									lvs++;
+									penkd+=18;
+									penfy+=8;									
+									lv.innerHTML=lvs;
+									kd.innerHTML=penkd;
+									fy.innerHTML=penfy;			
+									jinyan.innerHTML=jinyans+"/1500";
+								}else{
+									jinyan.innerHTML=jinyans+"/800";
+								}								
+							break;
+						}
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			#box {
+				width: 600px;
+				height: 400px;
+				background-color: skyblue;
+				margin: 100px auto;
+			}
+			.defen{
+				border: 5px solid black;
+				width: 130px;
+				height: 30px;
+				position: absolute;
+				top: 60px;
+				left: 660px;
+				color: red;
+				font-size: 20px;
+				line-height: 30px;
+			}
+			#defen{
+				display: inline-block;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="defen">得分: <p id="defen">0</p> </div>
+		<div id="box"></div>
+		<script type="text/javascript">
+			var arr = [
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+			];
+			var startarr=arr;
+			var box = document.getElementById("box");
+			var defen=document.getElementById("defen");
+			var x = 9;
+			var y = 15;
+			var fen=0;
+			var arr1 = new Array();
+			arr1[0] = [x, y];
+			var geshu = 0;
+			suiji();
+			fn(arr);
+			fm();
+
+			function shuzu(m, n, index) {
+				arr1.push([m, n]);
+			}
+
+			function num(min, max) {
+				return Math.round(Math.random() * (max - min) + min);
+			}
+
+			function suiji() {
+				var x1 = num(0, arr.length - 1);
+				var y1 = num(0, arr[x1].length - 1);
+				if((arr[x1][y1] != 1) && (arr[x1][y1] != 2)) {
+					arr[x1][y1] = 2;
+				} else {
+					return suiji();
+				}
+			}
+
+			function fn(arr) {
+				box.innerHTML = "";
+				for(var i = 0, len1 = arr.length; i < len1; i++) {
+					for(var j = 0, len2 = arr[i].length; j < len2; j++) {
+						var smallbox = document.createElement("div");
+						smallbox.style.height = "20px";
+						smallbox.style.width = "20px";
+						switch(arr[i][j]) {
+							case 0:
+								smallbox.style.backgroundColor = "skyblue";
+								break;
+							case 1:
+								smallbox.style.backgroundColor = "red";
+								break;
+							case 2:
+								smallbox.style.backgroundColor = "yellow";
+								break;
+						}
+						smallbox.style.float = "left";
+						box.appendChild(smallbox);
+					}
+				}
+			}
+
+			function fm() {
+				var code;
+				var time;
+
+				function timer1() {
+					var timer1 = setInterval(function() {
+						if(y > 0 && code != 3&&arr[arr1[0][0]][arr1[0][1] - 1] != 1) {
+							if(arr[arr1[0][0]][arr1[0][1] - 1] == 2) {
+								fen+=10;
+								defen.innerHTML=fen;
+								arr1.splice(0,0,[x,y-1]);
+								arr[arr1[arr1.length-1][0]][arr1[arr1.length-1][1]] = 1;
+								y--;								
+								arr[arr1[0][0]][arr1[0][1]] = 1;
+								suiji();
+								fn(arr);
+							} else {
+								arr[arr1[arr1.length-1][0]][arr1[arr1.length-1][1]] = 0;
+								y--;
+								for(var i=arr1.length;i--;){									
+										arr1[i]=arr1[i-1];
+								}						
+								arr1[0] = [x, y];
+								arr[arr1[0][0]][arr1[0][1]] = 1;
+								fn(arr);
+							}
+						} else {
+							alert("GAME OVER");
+//							clearInterval(time);
+//							x=9;
+//							y=15;
+//							fn(startarr);
+						}
+					}, 50);
+					return timer1;
+				}
+
+				function timer2() {
+					var timer2 = setInterval(function() {
+						if(x > 0 && code != 4&&arr[arr1[0][0]-1][arr1[0][1] ] != 1) {
+							if(arr[arr1[0][0]-1][arr1[0][1] ] == 2) {
+								fen+=10;
+								defen.innerHTML=fen;
+								arr1.splice(0,0,[x-1,y]);
+								arr[arr1[arr1.length-1][0]][arr1[arr1.length-1][1]] = 1;
+								x--;							
+								arr[arr1[0][0]][arr1[0][1]] = 1;
+								suiji();
+								fn(arr);
+							} else {
+								arr[arr1[arr1.length-1][0]][arr1[arr1.length-1][1]] = 0;
+								x--;
+								for(var i=arr1.length;i--;){									
+										arr1[i]=arr1[i-1];
+								}						
+								arr1[0] = [x, y];
+								arr[arr1[0][0]][arr1[0][1]] = 1;
+								fn(arr);
+							}
+						} else {
+							alert("GAME OVER");
+//							clearInterval(time);
+//							x=9;
+//							y=15;
+//							fn(startarr);
+						}
+					}, 50)
+					return timer2;
+				}
+
+				function timer3() {
+					var timer3 = setInterval(function() {
+						if(y < (arr[x].length - 1) && code != 1&&arr[arr1[0][0]][arr1[0][1] +1] != 1) {
+							if(arr[arr1[0][0]][arr1[0][1] +1] == 2) {
+								fen+=10;
+								defen.innerHTML=fen;
+								arr1.splice(0,0,[x,y+1]);
+								arr[arr1[arr1.length-1][0]][arr1[arr1.length-1][1]] = 1;
+								y++;							
+								arr[arr1[0][0]][arr1[0][1]] = 1;
+								suiji();
+								fn(arr);
+							} else {
+								arr[arr1[arr1.length-1][0]][arr1[arr1.length-1][1]] = 0;
+								y++;
+								for(var i=arr1.length;i--;){									
+										arr1[i]=arr1[i-1];
+								}						
+								arr1[0] = [x, y];
+								arr[arr1[0][0]][arr1[0][1]] = 1;
+								fn(arr);
+							}
+						} else {
+							alert("GAME OVER");
+//							clearInterval(time);
+//							x=9;
+//							y=15;
+//							fn(startarr);
+						}
+					}, 50)
+					return timer3;
+				}
+
+				function timer4() {
+					var timer4 = setInterval(function() {
+						if(x < (arr.length - 1) && code != 2&&arr[arr1[0][0]+1][arr1[0][1] ] != 1) {							
+							if(arr[arr1[0][0]+1][arr1[0][1] ] == 2) {
+								fen+=10;
+								defen.innerHTML=fen;
+								arr1.splice(0,0,[x+1,y]);
+								arr[arr1[arr1.length-1][0]][arr1[arr1.length-1][1]] = 1;
+								x++;							
+								arr[arr1[0][0]][arr1[0][1]] = 1;
+								suiji();
+								fn(arr);
+							} else {
+								arr[arr1[arr1.length-1][0]][arr1[arr1.length-1][1]] = 0;
+								x++;
+								for(var i=arr1.length;i--;){									
+										arr1[i]=arr1[i-1];
+								}						
+								arr1[0] = [x, y];
+								arr[arr1[0][0]][arr1[0][1]] = 1;
+								fn(arr);
+							}
+						} else {
+							alert("GAME OVER");
+//							clearInterval(time);
+//							x=9;
+//							y=15;
+//							fn(startarr);
+						}
+					}, 50);
+					return timer4;
+				}
+
+				window.onkeyup = function(e) {
+					switch(e.keyCode) {
+						case 37:
+							if(code != 3) {
+								clearInterval(time);
+								time = timer1();
+								code = 1;
+							}
+							break;
+
+						case 38:
+							if(code != 4) {
+								clearInterval(time);
+								time = timer2();
+								code = 2;
+							}
+							break;
+
+						case 39:
+							if(code != 1) {
+								clearInterval(time);
+								time = timer3();
+								code = 3;
+							}
+							break;
+
+						case 40:
+							if(code != 2) {
+								clearInterval(time);
+								time = timer4();
+								code = 4;
+							}
+							break;
+
+					}
+				}
+			}
+		</script>
+	</body>
+
+</html>

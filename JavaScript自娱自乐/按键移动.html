@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			#tuzi,
+			#wugui {
+				width: 100px;
+				height: 100px;
+				position: absolute;
+			}
+			
+			#linear {
+				width: 3px;
+				height: 500px;
+				background-color: red;
+				position: absolute;
+				top: 0;
+				left: 1400px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<img src="img/tuzi.jpg" id="tuzi" style="left: 10px; top: 100px;" />
+		<img src="img/wugui.jpg" id="wugui" style="left: 10px; top: 300px;" />
+		<div id="linear"></div>
+		<script type="text/javascript">
+			var tuzi = document.getElementById("tuzi");
+			var wugui = document.getElementById("wugui");
+			var tuzileft = 10;
+			var wuguileft = 10;
+			window.onkeyup = function(e) {
+				if(e.keyCode == 39) {
+					tuzileft += 30;
+					tuzi.style.left = tuzileft + "px";
+					if(tuzileft >= 1410) {
+						alert("兔子赢了");
+					}
+				}
+				if(e.keyCode == 68) {
+					wuguileft += 30;
+					wugui.style.left = wuguileft + "px";
+					if(wuguileft >= 1410) {
+						alert("乌龟赢了");
+					}
+				}
+			}
+		</script>
+	</body>
+
+</html>

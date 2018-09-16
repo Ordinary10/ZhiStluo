@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			#box {
+				width: 500px;
+				height: 500px;
+				background-color: skyblue;
+				margin: 100px auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="box"></div>
+		<script type="text/javascript">
+			var box = document.getElementById("box");
+			var x = 8;
+			var y = 0;
+			var arr = [
+				[2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+				[2, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+				[2, 2, 2, 2, 2, 2, 1, 2, 2, 2],
+				[2, 1, 1, 1, 1, 1, 1, 2, 1, 1],
+				[2, 1, 1, 2, 1, 1, 2, 2, 1, 2],
+				[2, 2, 1, 2, 2, 2, 1, 1, 1, 2],
+				[2, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+				[2, 2, 2, 1, 1, 1, 2, 2, 1, 1],
+				[0, 1, 2, 2, 1, 2, 1, 1, 1, 2],
+				[2, 1, 1, 2, 1, 2, 1, 2, 1, 1]
+				
+			];
+			fn(arr);
+			fm();
+
+			function fn(arr) {
+				for(var i = 0, len1 = arr.length; i < len1; i++) {
+					for(var j = 0, len2 = arr[i].length; j < len2; j++) {
+						var smallbox = document.createElement("img");
+						smallbox.style.height = "50px";
+						smallbox.style.width = "50px";
+						switch(arr[i][j]) {
+							case 0:
+								smallbox.src = "img/11.png";
+								break;
+							case 1:
+								smallbox.src = "img/1.png";
+								break;
+							case 2:
+								smallbox.src = "img/2.png";
+								break;
+							case 3:
+								smallbox.src = "img/4.png";
+								break;
+							case 4:
+								smallbox.src = "img/hkey.png";
+								break;
+							case 5:
+								smallbox.src = "img/4.png";
+								break;
+						}
+						smallbox.style.float = "left";
+						box.appendChild(smallbox);
+					}
+				
+			}
+			
+			function fm() {
+				var box = document.getElementById("box");
+				window.onkeyup = function(e) {
+					switch(e.keyCode) {
+						case 37:
+							if((y > 0) && (arr[x][y - 1] != 2)) {
+								if(arr[x][y - 1] == 3){
+									box.innerHTML = "";
+									arr[x][y] = 1;
+									y--;
+									arr[x][y] = 0;
+									fn(arr);
+								}else{
+									box.innerHTML = "";
+									arr[x][y] = 1;
+									y--;
+									arr[x][y] = 0;
+									fn(arr);
+								}								
+							}
+							break;
+
+						case 38:
+							if((x > 0) && (arr[x - 1][y] != 2)) {
+								if(arr[x - 1][y] == 3){
+									box.innerHTML = "";
+									arr[x][y] = 1;
+									x--;
+									arr[x][y] = 0;
+									fn(arr);
+								}else{
+									box.innerHTML = "";
+									arr[x][y] = 1;
+									x--;
+									arr[x][y] = 0;
+									fn(arr);
+								}
+								
+							}
+
+							break;
+
+						case 39:
+							if((y < (arr[x].length - 1)) && (arr[x][y + 1] != 2)) {
+								if(arr[x][y + 1] == 3){
+									box.innerHTML = "";
+									arr[x][y] = 1;
+									y++;
+									arr[x][y] = 0;
+									fn(arr);
+								}else{
+									box.innerHTML = "";
+									arr[x][y] = 1;
+									y++;
+									arr[x][y] = 0;
+									fn(arr);
+								}								
+							}
+							break;
+
+						case 40:
+							if((x < (arr.length - 1)) && (arr[x + 1][y] != 2)) {
+								if(arr[x + 1][y] == 3){								
+								box.innerHTML = "";
+								arr[x][y] = 1;
+								x++;
+								arr[x][y] = 0;
+								fn(arr);
+								}else{
+									box.innerHTML = "";
+									arr[x][y] = 1;
+									x++;
+									arr[x][y] = 0;
+									fn(arr);
+								}
+							}
+							break;
+					}
+				}
+			}
+		</script>
+	</body>
+
+</html>

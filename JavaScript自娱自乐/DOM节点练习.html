@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			#box {
+				width: 80%;
+				margin: 20px auto;
+			}
+			
+			.user {
+				width: 800px;
+				margin: 20px auto;
+			}
+			
+			h2 {
+				text-align: center;
+			}
+			
+			p {
+				margin: 20px 25%;
+			}
+			
+			.input1 {
+				width: 300px;
+				height: 24px;
+			}
+			
+			#submit0,
+			#reset0 {
+				width: 100px;
+				height: 28px;
+				margin-left: 60px;
+			}
+			
+			table {
+				width: 800px;
+				height: 24px;
+				margin: 20px auto;
+			}
+			
+			th {
+				display: inline-block;
+				width: 25%;
+				font-size: 20px;
+			}
+			
+			#add {
+				width: 800px;
+				margin: 20px auto;
+				position: relative;
+			}
+			
+			.addinput {
+				display: inline-block;
+				margin: 20px 0;
+				height: 24px;
+				width: 25%;
+				border: none;
+				text-align: center;
+			}
+			
+			.xiugai,
+			.shanchu,
+			.queding {
+				width: 50px;
+				height: 24px;
+				position: absolute;
+				margin-top: 20px;
+			}
+			
+			.xiugai,
+			.queding {
+				right: -50px;
+			}
+			
+			.shanchu {
+				right: -110px;
+			}
+			
+			.newgroup {
+				margin: 20px 0;
+				width: 198px;
+				height: 22px;
+				border: 1px solid black;
+				text-align: center;
+			}
+		</style>
+		<div id="box">
+
+			<form action="" method="post" class="user" target="submitFrame">
+				<h2>联系人管理</h2>
+				<p>姓名：<input type="text" class="input1" id="name0" required /></p>
+				<p>电话：<input type="number" class="input1" id="call" required/></p>
+				<p>住址：<input type="text" class="input1" id="address" required/></p>
+				<p>邮箱：<input type="email" class="input1" id="email" required/></p>
+				<p>
+					<input type="submit" name="submit0" id="submit0" value="提交" />
+					<input type="reset" name="reset0" id="reset0" value="重置" />
+				</p>
+			</form>
+			<table border="0" cellspacing="" cellpadding="" align="center">
+				<tr>
+					<th>姓名</th>
+					<th>电话</th>
+					<th>住址</th>
+					<th>邮箱</th>
+				</tr>
+
+			</table>
+			<div id="add"></div>
+		</div>
+		<script type="text/javascript">
+			var i = 0;
+			var add = document.getElementById("add");
+			var submit0 = document.getElementById("submit0");
+			var reset0 = document.getElementById("reset0");
+			var name0 = document.getElementById("name0");
+			var call = document.getElementById("call");
+			var address = document.getElementById("address");
+			var email = document.getElementById("email");
+
+			function fn() { //判断输入是否合法
+				var per1 = /^[\u4e00-\u9fa5]{2,4}$/;
+				var per2 = /^\d{11}$/;
+				var per3 = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
+
+				var re1 = per1.test(name0.value);
+				var re2 = per2.test(call.value);
+				var re3 = per3.test(email.value);
+
+				if(!re1) {
+					alert("请输入2到4位的中文姓名");
+					name0.focus();
+					return 0;
+				} else if(!re2) {
+					alert("请输入正确的11位电话号码");
+					call.focus();
+					return 0;
+				} else if(!re3) {
+					alert("请输入正确的邮箱格式");
+					email.focus();
+					return 0;
+				} else {
+					return 1;
+				}
+			}
+			submit0.onclick = function() { //提交按钮点击事件
+				var addstart = fn(); //调用判断输入合法函数，输入正确返回1
+				if(addstart) { //只有fn返回1才执行
+					i++;
+					var j = i;
+					for(; i == j; j++) {
+						add.innerHTML += '<div id="group' + i + '"></div>';
+						var group = document.getElementById("group" + i);
+						group.innerHTML += '<input type="text"   value="' + name0.value + '" class="addinput addinput' + i + '"  readonly="readonly" />'
+						group.innerHTML += '<input type="text"   value="' + call.value + '" class="addinput addinput' + i + '"  readonly="readonly"/>'
+						group.innerHTML += '<input type="text"   value="' + address.value + '" class="addinput addinput' + i + '"  readonly="readonly"/>'
+						group.innerHTML += '<input type="text"   value="' + email.value + '" class="addinput addinput' + i + '"  readonly="readonly"/>'
+						group.innerHTML += '<input type="button" class="xiugai xiugai' + i + '"  value="修改" />'
+						group.innerHTML += '<input type="button" class="shanchu shanchu' + i + '" value="删除" />'
+						fm(); //调用点击删除事件函数
+						ft(); //调用点击修改事件函数
+					}
+				}
+			}
+
+			function fm() { //设置点击删除事件
+				var shanchu = document.getElementsByClassName("shanchu");
+				for(var k = 0; k < shanchu.length; k++) {
+					shanchu[k].onclick = (function(k) {
+						var group = shanchu[k].parentNode;
+						return function() {
+							add.removeChild(group);
+						};
+					})(k);
+				}
+			}
+
+			function ft() { //设置修改按钮点击事件
+				var xiugai = document.getElementsByClassName("xiugai");
+				for(var p = 0; p < xiugai.length; p++) {
+					xiugai[p].onclick = (function(p) {
+						return function() {
+							var newelment = document.createElement("div");
+							newelment.id = "newgroup" + p;
+							var group = xiugai[p].parentNode;
+							var addinputs = group.getElementsByClassName("addinput");
+							var arr1 = new Array();
+							for(var o = 0; o < addinputs.length; o++) {
+								arr1.push(addinputs[o].value);
+							}
+							add.replaceChild(newelment, group);
+							var newgroup = document.getElementById(("newgroup" + p));
+							newgroup.innerHTML += '<input type="text"   value="' + arr1[0] + '" class="newgroup"   />'
+							newgroup.innerHTML += '<input type="text"   value="' + arr1[1] + '" class="newgroup" />'
+							newgroup.innerHTML += '<input type="text"   value="' + arr1[2] + '" class="newgroup"  />'
+							newgroup.innerHTML += '<input type="text"   value="' + arr1[3] + '" class="newgroup"  />'
+							newgroup.innerHTML += '<input type="button" class="queding"  id="queding" value="确定" />'
+							newgroup.innerHTML += '<input type="button" class="shanchu" value="删除" />'
+							fy();
+						}
+					})(p)
+				}				
+			}
+
+			function fy() {
+				i++;
+				var newelment = document.createElement("div");
+				var queding = document.getElementById("queding");
+				queding.onclick = function() {
+					var quedingfu = queding.parentNode;
+					newelment.id = "group" + i;
+					var newgroups = quedingfu.getElementsByClassName("newgroup");
+					var arr2 = new Array();
+					for(var u = 0; u < newgroups.length; u++) {
+						arr2.push(newgroups[u].value);
+					}
+					add.replaceChild(newelment, quedingfu);
+					var group0 = document.getElementById(("group" + i));
+					group0.innerHTML += '<input type="text"   value="' + arr2[0] + '" class="addinput addinput' + i + '"  readonly="readonly" />'
+					group0.innerHTML += '<input type="text"   value="' + arr2[1] + '" class="addinput addinput' + i + '"  readonly="readonly"/>'
+					group0.innerHTML += '<input type="text"   value="' + arr2[2] + '" class="addinput addinput' + i + '"  readonly="readonly"/>'
+					group0.innerHTML += '<input type="text"   value="' + arr2[3] + '" class="addinput addinput' + i + '"  readonly="readonly"/>'
+					group0.innerHTML += '<input type="button" class="xiugai xiugai' + i + '"  value="修改" />'
+					group0.innerHTML += '<input type="button" class="shanchu shanchu' + i + '" value="删除" />'
+					fm();
+					ft();
+				}
+			}
+		</script>
+
+		<iframe id="submitFrame" style="display: none;width:0; height:0" name="submitFrame" src="about:blank"></iframe>
+	</body>
+
+</html>

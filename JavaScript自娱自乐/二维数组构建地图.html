@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				overflow: hidden;
+				
+			}
+			.box{
+				/*background-color: skyblue;*/
+				margin: 50px auto;
+				
+				
+			}
+			.thingsbox{
+				margin: auto;
+				width: 800px;
+				border: 10px solid darkgoldenrod;
+				height: 100px;
+				background-image: url(img/11.png);
+				background-repeat: repeat;
+				font-size: 20px;
+				color: #fff;
+			}
+			.keysnum{
+				display: inline-block;
+				width: 40px;
+				height: 41px;
+				line-height: 41px;
+				vertical-align: middle;
+				text-align: center;
+				
+			}
+		</style>
+	</head>
+	<body>
+		<div class="thingsbox">
+			<div class="key">
+				<img src="img/hkey.png" alt="" style="vertical-align: middle;"/>
+				<span class="keysnum">0</span>
+			</div>
+			<div class="Blood">
+				<span>生命值：</span>
+				<span class="Bloodnum">100</span>
+			</div>
+			<div class="kd">
+				<span>攻击力：</span>
+				<span class="kdnum">50</span>
+			</div>
+		</div>
+		<div class="box" style="width: 800px;height: 500px;"></div>
+		
+		<script type="text/javascript">
+			var arrays = [
+				[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+				[2,13,0,0,2,8,0,0,0,0,0,0,0,0,2],
+				[2,0,12,12,2,2,2,2,2,2,2,2,2,0,2],
+				[2,0,2,2,2,0,12,2,0,0,2,0,2,0,2],
+				[2,0,0,0,2,12,12,0,0,0,0,4,2,0,2],
+				[2,0,12,0,2,2,2,2,2,2,2,0,2,0,2],
+				[2,0,2,2,2,0,0,0,0,0,0,0,2,0,2],
+				[2,0,0,0,2,0,2,2,2,2,2,2,2,0,2],
+				[2,0,0,12,2,12,11,0,0,0,0,0,0,0,2],
+				[2,0,2,2,2,2,2,0,2,2,2,2,2,2,2],
+				[2,6,0,0,0,0,0,0,6,0,0,0,0,12,2],
+				[2,2,2,2,0,2,2,0,2,2,0,2,2,2,2],
+				[2,0,0,0,6,2,0,0,0,2,4,4,4,4,2],
+				[2,0,0,0,0,2,0,1,0,2,4,0,12,12,2],
+				[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]
+			];
+			var arrays1 = [
+				[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+				[2,13,0,0,2,8,0,0,0,0,0,0,0,0,2],
+				[2,0,12,12,2,2,2,2,2,2,2,2,2,0,2],
+				[2,0,2,2,2,0,12,2,0,0,2,0,2,0,2],
+				[2,0,0,0,2,12,12,0,0,0,0,4,2,0,2],
+				[2,0,12,0,2,2,2,2,2,2,2,0,2,0,2],
+				[2,0,2,2,2,0,0,0,0,0,0,0,2,0,2],
+				[2,0,0,0,2,0,2,2,2,2,2,2,2,0,2],
+				[2,0,0,12,2,12,11,0,0,0,0,0,0,0,2],
+				[2,0,2,2,2,2,2,0,2,2,2,2,2,2,2],
+				[2,6,0,0,0,0,0,0,6,0,0,0,0,12,2],
+				[2,2,2,2,0,2,2,0,2,2,0,2,2,2,2],
+				[2,0,0,0,6,2,0,0,0,2,4,4,4,4,2],
+				[2,0,0,0,0,2,0,1,0,2,4,0,12,12,2],
+				[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]
+			];
+			var arrays2 = [
+				[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+				[2,13,0,0,2,8,0,0,0,0,0,0,0,0,2],
+				[2,0,12,12,2,2,2,2,2,2,2,2,2,0,2],
+				[2,0,2,2,2,0,12,2,0,0,2,0,2,0,2],
+				[2,0,0,0,2,12,12,0,0,0,0,4,2,0,2],
+				[2,0,12,0,2,2,2,2,2,2,2,0,2,0,2],
+				[2,0,2,2,2,0,0,0,0,0,0,0,2,0,2],
+				[2,0,0,0,2,0,2,2,2,2,2,2,2,0,2],
+				[2,0,0,12,2,12,11,0,0,0,0,0,0,0,2],
+				[2,0,2,2,2,2,2,0,2,2,2,2,2,2,2],
+				[2,6,0,0,0,0,0,0,6,0,0,0,0,12,2],
+				[2,2,2,2,0,2,2,0,2,2,0,2,2,2,2],
+				[2,0,0,0,6,2,0,0,0,2,4,4,4,4,2],
+				[2,0,0,0,0,2,0,1,0,2,4,0,12,12,2],
+				[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]
+			];
+			var boxwidth = parseInt(document.getElementsByClassName("box")[0].style.width);
+			var boxheight = parseInt(document.getElementsByClassName("box")[0].style.height);
+			var keysnum  =document.getElementsByClassName("keysnum")[0];
+			var Bloodnum = document.getElementsByClassName("Bloodnum")[0];
+			var kdnum = document.getElementsByClassName("kdnum")[0]
+			var x = 7;
+			var y = 13;
+			var keys = 0;
+			var Blood = 100;
+			var kd1 = 49;
+			var kd2 = 71;
+			var personkd = 50;
+			Map(arrays);
+			var arr=arrays;
+			move()
+			function Map(arrays){
+				document.getElementsByClassName("box")[0].innerHTML = ""
+				for(var i = 0;i<arrays.length;i++){
+					for(var j = 0;j<arrays[i].length;j++){
+						console.log(arrays[i][j]);
+						var div = document.createElement("div");
+						div.style.width = boxwidth/arrays[i].length+"px";
+						div.style.height = boxheight/arrays.length+"px";
+						div.style.backgroundRepeat = "no-repeat";
+						div.style.backgroundSize = "100% 100%";
+						div.style.backgroundColor = "rgba(0,0,0,0)"
+						div.style.float = "left";
+						if(arrays[i][j]==0){
+							div.style.backgroundImage = "url(img/9.png)"
+						}else if(arrays[i][j]==1){
+							div.style.backgroundImage = "url(img/2.jpg)"
+						}else if(arrays[i][j]==2){
+							div.style.backgroundImage = "url(img/8.png)"
+						}else if(arrays[i][j]==3){
+							div.style.backgroundImage = "url(img/1.png)"
+						}else if(arrays[i][j]==4){
+							div.style.backgroundImage = "url(img/hkey.png)"
+						}else if(arrays[i][j]==5){
+							div.style.backgroundImage = "url(img/hbaoshi.png)"
+						}else if(arrays[i][j]==6){
+							div.style.backgroundImage = "url(img/cmen.png)"
+						}else if(arrays[i][j]==7){
+							div.style.backgroundImage = "url(img/kd1.png)"
+						}else if(arrays[i][j]==8){
+							div.style.backgroundImage = "url(img/uplou.png)"
+						}else if(arrays[i][j]==9){
+							div.style.backgroundImage = "url(img/4.png)"
+						}else if(arrays[i][j]==10){
+							div.style.backgroundImage = "url(img/downlou.png)"
+						}else if(arrays[i][j]==11){
+							div.style.backgroundImage = "url(img/lmen.png)"
+						}else if(arrays[i][j]==12){
+							div.style.backgroundImage = "url(img/xueping.png)"
+						}else if(arrays[i][j]==13){
+							div.style.backgroundImage = "url(img/wujiaoxing.png)"
+						};
+						document.getElementsByClassName("box")[0].appendChild(div)
+					}
+				}
+			}
+			
+			function move(){
+				window.onkeyup  =function(e){
+					switch(e.keyCode){
+						case 37:
+						if(x<=0){
+						}else{
+							compare(37,arr)
+						}
+						break;
+						case 38:
+						if(y<=0){
+							
+						}else{
+							compare(38,arr)
+						}
+						break;
+						case 39:
+						if(x>arrays[y].length-2){					
+						}else{
+							compare(39,arr)							
+						}
+						
+						break;
+						case 40:
+						if(y>arrays.length-2){
+							
+						}else{
+							compare(40,arr)
+						}
+						break;
+					}
+				}
+			}
+			function clear(arrays,xtype,ytype){
+				var y0;
+				var x0;
+				if(xtype==0){
+					x0 = x+1;
+					y0 = y;
+					
+				}else if(xtype==1){
+					x0 = x-1;
+					y0 = y
+				}else if(xtype==2){
+					if(ytype==0){
+						x0 = x;
+						y0 = y+1;
+					}else if(ytype==1){
+						x0 = x;
+						y0 = y-1;
+					}
+				}
+				var temp;
+				temp = arrays[y][x];
+				arrays[y][x] = arrays[y0][x0];
+				arrays[y0][x0] = temp;
+				y = y0;
+				x = x0;
+				Map(arrays)
+			}
+			function compare(keycode,arrays){
+				var x0;
+				var y0;
+				var typex;
+				var typey;
+				if(keycode==37){
+					x0 = x-1;
+					y0 = y;
+					typex = 0;
+					typey = 1
+				}else if(keycode==38){
+					x0 = x;
+					y0 = y-1;
+					typex = 1;
+					typey = 2
+				}else if(keycode==39){
+					x0 = x+1;
+					y0 = y;
+					typex = 0;
+					typey = 0
+				}else if(keycode==40){
+					x0 = x;
+					y0 = y+1;
+					typex = 0;
+					typey = 2
+				}
+				if(arrays[y0][x0]==2){
+								
+							}else if(arrays[y0][x0]==3){
+								if(personkd>kd1){
+									arrays[y0][x0] = 0;
+									clear(arrays,typey,typex);
+									personkd+=1;
+									kdnum.innerText = personkd
+								}else{
+									
+								}
+								
+							}else if(arrays[y0][x0]==9){
+								if(personkd>kd2){
+									arrays[y0][x0] = 0;
+									clear(arrays,typey,typex);
+									personkd+=1;
+									kdnum.innerText = personkd
+								}else{
+									arrays[y][x]=0;
+									x=0;
+									y=0;
+									arrays[y][x] = 1;
+									Map(arrays);
+								}
+								
+							}
+							else if(arrays[y0][x0]==6){
+								if(keys>0){
+									keys--;
+									keysnum.innerText = keys
+									arrays[y0][x0] = 0;
+									clear(arrays,typey,typex);
+								}else{
+									alert("钥匙不足，请收集再开门！！！")
+								}
+							}
+							else if(arrays[y0][x0]==4){
+								keys++;
+								keysnum.innerText = keys
+								arrays[y0][x0] = 0;
+								clear(arrays,typey,typex);
+							}
+							else if(arrays[y0][x0]==5){
+								Blood+=10;
+								Bloodnum.innerText = Blood
+								arrays[y0][x0] = 0;
+								clear(arrays,typey,typex);
+							}else if(arrays[y0][x0]==7){
+								arrays[y0][x0] = 0;
+								clear(arrays,typey,typex);
+								personkd+=20;
+								kdnum.innerText = personkd
+							}else if(arrays[y0][x0]==8){
+								arr=arrays1;
+								Map(arr);
+							}
+							else{
+								clear(arrays,typey,typex);
+							}
+			}
+		</script>
+	</body>
+</html>

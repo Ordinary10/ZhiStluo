@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				background-color: blue;
+			}
+		</style>
+	</head>
+
+	<body id="box">
+		<script type="text/javascript">
+			var arr = ["purple", "blue", "cyan", "green", "yellow", "orange", "red"];
+			var box = document.getElementById("box");
+			box.style.height = window.innerHeight + "px";
+			box.style.width = window.innerWidth + "px";
+			box.style.backgroundColor = "skyblue";
+			box.style.position = "relative";
+
+			var center1 = document.createElement("div");
+			center1.style.width = "5px";
+			center1.style.height = "5px";
+			center1.style.borderRadius = "50%";
+			center1.style.backgroundColor = "black";
+			center1.style.position = "absolute";
+			center1.style.top = "500px";
+			center1.style.left = "1000px";
+			box.appendChild(center1);
+			
+			
+				
+				var deg=-170;
+				var timer=setInterval(function(){
+					deg++;
+					for(var i=7;i--;){	
+					var r=400-i*20;
+					var ribbon=document.createElement("div");
+					ribbon.style.width = "20px";
+					ribbon.style.height = "20px";
+					ribbon.style.backgroundColor = arr[i];
+					ribbon.style.borderRadius = "50%";
+					ribbon.style.position = "absolute";
+					ribbon.style.top = 500+r*Math.sin(deg*Math.PI/180)+"px";
+					ribbon.style.left = 1000+r*Math.cos(deg*Math.PI/180)+"px";
+					box.appendChild(ribbon);
+					
+					}
+					if(deg>=-10){
+						clearInterval(timer);
+					}
+				},1)
+			
+			
+		</script>
+	</body>
+
+</html>

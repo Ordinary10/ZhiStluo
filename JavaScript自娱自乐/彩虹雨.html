@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			body {
+				width: 100%;
+				background-color: black;
+			}
+			
+			div {
+				width: 3px;
+				height: 24px;
+				border-radius: 1.5px;
+			}
+		</style>
+	</head>
+
+	<body id="box">
+		<script type="text/javascript">
+			var box = document.getElementById("box");
+			box.style.height = window.innerHeight + "px";
+			box.style.position = "relative";
+			var raintimer = setInterval(function() {
+				var rain = document.createElement("div");
+				var colorone = Math.round(Math.random() * 255);
+				var colortwo = Math.round(Math.random() * 255);
+				var colorthree = Math.round(Math.random() * 255);
+				var rainleft=Math.round(Math.random()*(window.innerWidth-50)+20);
+				rain.style.backgroundColor = "rgb(" + colorone + "," + colortwo + "," + colorthree + ")";
+				rain.style.position = "absolute";
+				rain.style.left=rainleft+"px";
+				var g=10;
+				var t=0;
+				var raintop=0;
+				var timer=setInterval(function(){
+//					var rainlefts=parseInt(rain.style.left);
+//					rainlefts-=0.005;
+					t+=0.05;
+					raintop=g*t*t/2;
+					rain.style.top=raintop+"px";
+//					rain.style.left=rainlefts+"px";
+					if(raintop>=(window.innerHeight-50)){
+						clearInterval(timer);
+						rain.style.borderRadius="50%";
+						rain.style.transform="scale(20,1)";
+						var scaleX=20;
+						var scaleY=1;
+						var op=1;
+						var timers=setInterval(function(){
+							scaleX-=0.2;
+							scaleY-=0.01;
+							op-=0.01;
+							rain.style.transform="scale("+scaleX+","+scaleY+")";
+							rain.style.opacity=op;
+							if(op<=0){
+								clearInterval(timers);
+								rain.parentElement.removeChild(rain);
+							}
+						},5)
+					}
+				},1);
+				box.appendChild(rain);
+			}, 10);
+			
+			
+			
+		</script>
+
+	</body>
+
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<canvas id="canvas" width="1600" height="920" style="border: 1px solid;"></canvas>
+		<button id="btnclear">清空画布</button>
+		<!--<button id="btn2">橡皮擦</button>-->
+		<script type="text/javascript">
+			var c = document.getElementById("canvas");
+			var context = c.getContext("2d"); //获取一个内建好html对象
+
+			context.fillStyle = "red"; //区域填充色
+			context.fillRect(0, 0, 300, 100); //填充区域范围x：100==>400;y：100==>180；
+
+			context.strokeStyle = "blue"; //轮廓颜色
+			context.strokeRect(50, 50, 200, 90); //轮廓大小
+
+			context.moveTo(600, 800); //起点
+			context.lineTo(500, 500); //节点，可以设置多个
+			context.lineTo(400, 300);
+			context.lineTo(300, 200);
+			context.lineTo(200, 0);
+			context.stroke(); //起点至终点
+
+			context.beginPath(); //绘制开始
+			context.fillStyle = "green"; //填充色
+			context.arc(200, 600, 150, 0, Math.PI, true); //绘制弧线，半个圆
+			//			context.stroke();//如果context.closePath()在此句后，则不会自动闭合图形						
+			context.closePath(); //绘制结束
+			context.stroke(); //如果context.closePath()在此句前，则会自动闭合图形
+			context.fill(); //填充
+
+			var btnclear = document.getElementById("btnclear");
+			btnclear.addEventListener("click", function(event) {
+				//				var e=event||window.event;
+				//				var x=e.clientX;
+				//				var y=e.clientY;
+				context.clearRect(0, 0, 1800, 920);
+			}, false)
+
+//			var btn2 = document.getElementById("btn2");
+//			btn2.addEventListener("click", function(event) {
+////				c.addEventListener("click", function(event) {
+//					var e = event || window.event;
+//					var x = e.clientX;
+//					var y = e.clientY;
+//					context.clearRect(x - 10, x - 10, 20, 20);
+////				}, false);
+//			}, false);
+
+			context.beginPath();
+			context.moveTo(400, 400);
+			context.bezierCurveTo(500, 500, 800, 860, 1000, 400);
+			context.stroke();
+			context.closePath();
+			
+			context.beginPath();
+			context.moveTo(1000, 400);
+			context.bezierCurveTo(800, 60, 500, 300, 400, 400);
+			context.stroke();
+			context.closePath();
+		</script>
+	</body>
+
+</html>

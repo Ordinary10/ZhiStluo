@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<style type="text/css" id="style0">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			#box {
+				width: 600px;
+				height: 600px;
+				margin: 100px auto;
+				border: 1px solid black;
+				position: relative;
+			}
+			
+			span {
+				display: inline-block;
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
+				background-color: gray;
+				position: absolute;
+				animation: move0 0.5s  infinite;
+			}			
+			
+			#smallround0 {
+				top: 50%;
+				left: 50%;
+			}
+		</style>
+		<div id="box">
+			<span id="smallround0"></span>
+		</div>
+		<script type="text/javascript">
+			var smallround0=document.getElementById("smallround0");
+			function randomnum() {
+				return Math.round((Math.random() *550));
+			}
+			var style0 = document.getElementById("style0");
+//			console.log(style0);
+			var sheets = style0.sheet;
+//			console.log(sheets);
+			var frams0 = sheets.cssRules[3];
+//			console.log(frams0);
+
+			function fn() {
+				var toprandom = randomnum();
+				var leftrandom = randomnum();
+				sheets.insertRule('@keyframes move0 {0% {top: 50%;left: 50%;}100% {top: ' + toprandom + 'px;left: ' + leftrandom + 'px;}}',3);
+				smallround0.style.top=toprandom+"px";
+				smallround0.style.left=leftrandom+"px";
+			}
+			
+			
+			function fm(){
+				fn();
+				var top=smallround0.style.top;
+				var left=smallround0.style.left;
+				function fs(){
+					var toprandom = randomnum();
+					var leftrandom = randomnum();
+					sheets.deleteRule(3);
+					sheets.insertRule('@keyframes move0 {0% {top: '+top+';left: '+left+';}100% {top: ' + toprandom + 'px;left: ' + leftrandom + 'px;}}', 3);
+					top=toprandom+"px";
+					left=leftrandom+"px";
+					smallround0.style.top=top;
+					smallround0.style.left=left;
+					console.log(top,left)					
+				}
+				var temer=setInterval(fs,500);
+				smallround0.onclick=function(){
+				clearInterval(temer);
+				sheets.deleteRule(3);
+			}
+//				smallround0.onclick=function(){
+//					sheets.insertRule('@keyframes move0 {0% {top: '+top+';left: '+left+';}100% {top: ' + top + 'px;left: ' + left + 'px;}}', 3);
+//					setInterval(fs,500);
+//				}
+			}
+			fm();
+			
+		</script>
+	</body>
+
+</html>

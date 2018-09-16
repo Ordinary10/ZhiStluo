@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			#box {
+				width: 494px;
+				height: 494px;
+				margin: 200px auto;
+				background: url(img/timer1.jpg) no-repeat;
+				position: relative;
+			}
+			
+			span {
+				display: inline-block;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+			}
+			
+			#center {
+				width: 20px;
+				height: 20px;
+				border-radius: 50%;
+				top: 50%;
+				left: 50%;
+				background-color: gray;
+				margin: -10px 0 0 -10px;
+				z-index: 10;
+			}
+			
+			#seconds {
+				width: 2px;
+				height: 150px;
+				background-color: red;
+				z-index: 9;
+				margin: 0 0 0 -1px;
+			}
+			
+			#points {
+				width: 4px;
+				height: 110px;
+				background-color: green;
+				z-index: 8;
+				margin: 0 0 0 -2px;
+			}
+			
+			#hour {
+				width: 8px;
+				height: 80px;
+				background-color: black;
+				z-index: 7;
+				margin: 0 0 0 -4px;
+			}
+			
+			#seconds,
+			#points,
+			#hour {
+				transform-origin: top;
+				transform: rotate(180deg);
+			}
+		</style>
+		<div id="box">
+			<span id="seconds"></span>
+			<span id="points"></span>
+			<span id="hour"></span>
+			<span id="center"></span>
+		</div>
+		<script type="text/javascript">
+			function funweek(times) { //	提取标准时间中的周的函数
+				var pre1 = /^.{3}/i;
+				var week = pre1.exec(times)[0];
+				return week;
+			}
+
+			function funyue(times) { //	提取标准时间中的月的函数
+				var pre3 = /[A-Za-z]{3}/;
+				var pre2 = /\s.{3}/i;
+				var re1 = pre2.exec(times)[0];
+				var yue = pre3.exec(re1)[0];
+				return yue;
+			}
+
+			function funday(times) { //	提取标准时间中的日的函数
+				var pre4 = /\d{2}/;
+				var day = pre4.exec(times)[0];
+				return day;
+			}
+
+			function funyears(times) { //	提取标准时间中的年的函数
+				var pre5 = /\d{4}/;
+				var years = pre5.exec(times)[0];
+				return years;
+			}
+
+			function funhour(times) { //	提取标准时间中的时的函数
+				var pre6 = /\d{2}(?=:)/;
+				var hour = pre6.exec(times)[0];
+				return hour;
+			}
+
+			function funpoints(times) { //	提取标准时间中的分的函数
+				var pre7 = /:\d{2}/;
+				var re2 = pre7.exec(times)[0];
+				var pre8 = /\d{2}/;
+				var points = pre8.exec(re2)[0];
+				return points;
+			}
+
+			function funseconds(times) { //	提取标准时间中的秒的函数		
+				var pre9 = /:\d{2}(?= )/;
+				var re3 = pre9.exec(times)[0];
+				var pre10 = /\d{2}/;
+				var seconds = pre10.exec(re3)[0];
+				return seconds;
+			}
+ 
+			function fn() {
+				var times = Date(); //获取标准时间（北京时间）
+				var seconds = document.getElementById("seconds"); //获取秒针
+				var points = document.getElementById("points"); //获取分针
+				var hour = document.getElementById("hour"); //获取时针
+
+				var secondsnum = funseconds(times); //调用函数通过正则表达式从标准时间中提取出秒
+				seconds.style.transform = 'rotate(' + ((secondsnum / 60) * 360 + 180) + 'deg)'; //通过计算秒对应表盘秒针的角度
+
+				var pointsnum = funpoints(times); //调用函数通过正则表达式从标准时间中提取出分数
+				points.style.transform = 'rotate(' + ((pointsnum / 60) * 360 + 180 + secondsnum / 10) + 'deg)'; //通过计算分对应表盘分针的角度
+
+				var hournum = funhour(times); //调用函数通过正则表达式从标准时间中提取出时
+				hour.style.transform = 'rotate(' + ((hournum / 24 * 720) + 180 + pointsnum / 2 + (secondsnum / 120)) + 'deg)'; //通过计算时对应表盘时针的角度
+			}
+
+			setInterval(fn, 100);
+		</script>
+	</body>
+
+</html>
